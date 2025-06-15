@@ -20,7 +20,7 @@ RUN git lfs install
 # Set the working directory to /app (where Railway clones your repo by default)
 WORKDIR /app
 
-RUN git clone https://github.com/He231andhar-A/OaR.git . # <--- Your repo content is placed here in /app
+RUN git clone https://github.com/Hemachandhar-A/OCR.git . # <--- Your repo content is placed here in /app
 
 # Now, change the working directory *into* the backend folder.
 # This is crucial so that subsequent commands (like pip install and gunicorn)
