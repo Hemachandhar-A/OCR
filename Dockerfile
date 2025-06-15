@@ -1,7 +1,8 @@
+# Use a slim Python image
 FROM python:3.11-slim
 
-# Install necessary system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies needed for OpenCV and Git LFS
+RUN apt-get update && apt-get install -y \
     git \
     git-lfs \
     build-essential \
@@ -10,28 +11,36 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libxext6 \
     libxrender-dev \
- && git lfs install \
- && apt-get purge -y --auto-remove \
- && rm -rf /var/lib/apt/lists/*
+    # Clean up apt caches to reduce image size
+    && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Install git-lfs for fetching large files (globally in the container)
+RUN git lfs install
+
+# Set the working directory to /app (where Railway clones your repo by default)
 WORKDIR /app
+RUN git clone https://github.com/Hemachandhar-A/OCR.git .
 
-# Copy everything (must include .git and .gitattributes for LFS)
-COPY . .
 
-# Pull large files (model files) tracked by Git LFS
-RUN git lfs pull
+# Copy the content of your 'backend' folder from your Git repository (build context)
+# into the '/app/backend' directory inside the Docker container.
+COPY ./backend /app/backend
 
-# Change directory into backend
+# Now, change the working directory *into* the backend folder.
+# This ensures that subsequent commands are executed relative to where your Python app files are.
 WORKDIR /app/backend
 
-# Install Python requirements
+# *** CRITICAL ADDITION/MODIFICATION FOR LFS FILES ***
+# Run git lfs pull *after* the backend directory content has been copied.
+# This will download the actual large files tracked by LFS into this directory.
+RUN git lfs pull
+
+# Install Python dependencies from the backend's requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set environment variables
+# Environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
-# Run app with gunicorn
+# Command to run the application using Gunicorn
 CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:$PORT", "--timeout", "120", "--workers", "2"]
