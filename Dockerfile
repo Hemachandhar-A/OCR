@@ -1,6 +1,5 @@
 FROM python:3.11-slim
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     git-lfs \
@@ -12,18 +11,20 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Enable Git LFS
 RUN git lfs install
 
-# Clone your repo and pull LFS files
+# Clone the full repo
 WORKDIR /app
-RUN git clone https://github.com/Hemachandhar-A/OCR.git .
+RUN git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .
+
 RUN git lfs pull
 
-# Install Python requirements
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set Flask environment
+# Change working directory to backend
+WORKDIR /app/backend
+
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
