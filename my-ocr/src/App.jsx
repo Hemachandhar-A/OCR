@@ -15,7 +15,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Define your backend API URL
-  const API_BASE_URL = 'http://ocr-production-0ada.up.railway.app/'; // Make sure this matches your Flask backend URL
+  const API_BASE_URL = 'https://ocr-production-0ada.up.railway.app'; // Make sure this matches your Flask backend URL
 
   // Function to show custom message box
   const showCustomMessageBox = (message) => {
