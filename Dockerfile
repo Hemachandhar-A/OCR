@@ -19,6 +19,8 @@ RUN git lfs install
 
 # Set the working directory to /app (where Railway clones your repo by default)
 WORKDIR /app
+RUN git clone https://github.com/Hemachandhar-A/OCR.git .
+
 
 # Copy the content of your 'backend' folder from your Git repository (build context)
 # into the '/app/backend' directory inside the Docker container.
