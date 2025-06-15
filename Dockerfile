@@ -15,7 +15,7 @@ RUN git lfs install
 
 # Clone the full repo
 WORKDIR /app
-RUN git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .
+RUN git clone https://github.com/Hemachandhar-A/OCR.git .
 
 RUN git lfs pull
 
