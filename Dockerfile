@@ -2,9 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /GITOCR
 
+# Install system packages including libGL
 RUN apt-get update && apt-get install -y \
     build-essential \
     libglib2.0-0 \
+    libgl1 \
     libsm6 \
     libxext6 \
     libxrender-dev \
