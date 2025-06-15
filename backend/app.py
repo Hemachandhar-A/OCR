@@ -265,7 +265,9 @@ if __name__ == '__main__':
         app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
         
         # Start the server
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        port = int(os.environ.get('PORT', 5000)) # Use PORT env var, default to 5000
+
+        app.run(debug=True, host='0.0.0.0', port=port)
     else:
         print("❌ Failed to load model. Please check:")
         print(f"   - Model file exists at: {MODEL_PATH}")
