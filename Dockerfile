@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # Set working directory
-WORKDIR /app
+WORKDIR /GITOCR
 
 # Install system dependencies for building packages + TensorFlow support
 RUN apt-get update && apt-get install -y \
