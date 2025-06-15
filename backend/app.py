@@ -246,7 +246,8 @@ if __name__ == '__main__':
     print("Initializing text detection model...")
     
     # Try to initialize the detector
-    if initialize_detector():
+    if detector is not None: # Check if model was loaded globally
+
         print("✅ Model loaded successfully!")
         print("\n🚀 Starting Flask server...")
         print("📡 Backend will be available at: http://localhost:5000")
