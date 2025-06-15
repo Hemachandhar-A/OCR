@@ -131,7 +131,7 @@ class TextDetectionInference:
             }
 
 # Initialize the detector (you'll need to update the model path)
-MODEL_PATH = 'backend/best_text_detector.h5' # Update this path
+MODEL_PATH = 'best_text_detector.h5' # Update this path
 detector = None
 
 def initialize_detector():
