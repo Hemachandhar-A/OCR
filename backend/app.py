@@ -13,11 +13,14 @@ from matplotlib.patches import Polygon
 import warnings
 warnings.filterwarnings('ignore')
 
+
 # Set matplotlib to use non-interactive backend
 plt.switch_backend('Agg')
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+
 
 class TextDetectionInference:
     """
@@ -128,7 +131,7 @@ class TextDetectionInference:
             }
 
 # Initialize the detector (you'll need to update the model path)
-MODEL_PATH = "best_text_detector.h5"  # Update this path
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'best_text_detector.h5') # Update this path
 detector = None
 
 def initialize_detector():
