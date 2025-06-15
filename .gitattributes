@@ -1,0 +1,1 @@
+backend/best_text_detector.h5 filter=lfs diff=lfs merge=lfs -text
