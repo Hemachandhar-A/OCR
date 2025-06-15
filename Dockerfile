@@ -17,7 +17,7 @@ RUN git lfs install
 
 # Clone your repo and pull LFS files
 WORKDIR /app
-RUN git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git .
+RUN git clone https://github.com/Hemachandhar-A/OCR.git .
 RUN git lfs pull
 
 # Install Python requirements
