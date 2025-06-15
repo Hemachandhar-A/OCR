@@ -44,4 +44,4 @@ ENV FLASK_ENV=production
 
 # Command to run the application using Gunicorn
 # Use the $PORT environment variable provided by Railway
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:$PORT", "--timeout", "120", "--workers", "2"]
+CMD sh -c 'gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2'
