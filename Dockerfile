@@ -17,7 +17,9 @@ RUN apt-get update && apt-get install -y \
 COPY pixelpantry_backend/ .
 
 # Install Python dependencies (TensorFlow + Flask + others)
+COPY requirements.txt .    # make sure this is BEFORE pip install
 RUN pip install --no-cache-dir -r requirements.txt
+
 
 # Set environment variables for Flask
 ENV FLASK_APP=app.py
