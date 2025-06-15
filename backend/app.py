@@ -18,7 +18,8 @@ warnings.filterwarnings('ignore')
 plt.switch_backend('Agg')
 
 app = Flask(__name__)
-CORS(app, origins=["https://third-eye-xi.vercel.app"])# Enable CORS for all routes
+
+CORS(app, origins=["https://third-eye-hemachandhars-projects.vercel.app/"])# Enable CORS for all routes
 
 
 
