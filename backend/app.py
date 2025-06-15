@@ -19,7 +19,7 @@ plt.switch_backend('Agg')
 
 app = Flask(__name__)
 
-CORS(app, origins=["https://third-eye-hemachandhars-projects.vercel.app/"])# Enable CORS for all routes
+CORS(app, origins=["https://third-eye-hemachandhars-projects.vercel.app"])# Enable CORS for all routes
 
 
 
@@ -135,20 +135,14 @@ class TextDetectionInference:
 MODEL_PATH = 'best_text_detector.h5' # Update this path
 detector = None
 
-def initialize_detector():
-    """Initialize the text detector"""
-    global detector
-    try:
-        if os.path.exists(MODEL_PATH):
-            detector = TextDetectionInference(MODEL_PATH, input_size=(512, 512))
-            print("Text detector initialized successfully!")
-            return True
-        else:
-            print(f"Model file not found at {MODEL_PATH}")
-            return False
-    except Exception as e:
-        print(f"Error initializing detector: {str(e)}")
-        return False
+try:
+    if os.path.exists(MODEL_PATH):
+        detector = TextDetectionInference(MODEL_PATH, input_size=(512, 512))
+        print("Text detector initialized successfully globally!") # Use print for logs initially
+    else:
+        print(f"Error: Model file not found at {MODEL_PATH}")
+except Exception as e:
+    print(f"FATAL ERROR: Failed to initialize detector globally: {str(e)}")
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -266,9 +260,7 @@ if __name__ == '__main__':
         app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
         
         # Start the server
-        port = int(os.environ.get('PORT', 5000)) # Use PORT env var, default to 5000
 
-        app.run(debug=True, host='0.0.0.0', port=port)
     else:
         print("❌ Failed to load model. Please check:")
         print(f"   - Model file exists at: {MODEL_PATH}")
