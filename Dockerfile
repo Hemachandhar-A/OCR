@@ -1,9 +1,9 @@
 FROM python:3.11-slim
 
-WORKDIR /GITOCR
-
-# Install system packages including libGL
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
+    git \
+    git-lfs \
     build-essential \
     libglib2.0-0 \
     libgl1 \
@@ -12,11 +12,18 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+# Enable Git LFS
+RUN git lfs install
+
+# Clone your repo and pull LFS files
+WORKDIR /app
+RUN git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git .
+RUN git lfs pull
+
+# Install Python requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY backend/ .
-
+# Set Flask environment
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
