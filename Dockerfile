@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY pixelpantry_backend/ .
+COPY backend/ .
 
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
